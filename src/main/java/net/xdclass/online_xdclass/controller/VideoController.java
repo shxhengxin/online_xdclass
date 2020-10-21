@@ -53,6 +53,7 @@ public class VideoController {
     @GetMapping("banner")
     public JsonData indexBanner() {
         List<VideoBanner> bannerList = videoService.listVideoBanner();
+
         return  JsonData.buildSuccess(bannerList);
     }
 }

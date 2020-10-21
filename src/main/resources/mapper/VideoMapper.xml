@@ -40,7 +40,6 @@
         from video v
         left join chapter c on v.id=c.video_id
         left join episode e on c.id=e.chapter_id
-
         where v.id = #{video_id} order by c.ordered,e.num asc
     </select>
 
