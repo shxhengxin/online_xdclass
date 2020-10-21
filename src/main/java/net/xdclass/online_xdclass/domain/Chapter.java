@@ -1,6 +1,7 @@
 package net.xdclass.online_xdclass.domain;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *  小滴课堂 章对象
@@ -24,15 +25,14 @@ public class Chapter {
 
     private Date createTime;
 
-    @Override
-    public String toString() {
-        return "Chapter{" +
-                "id=" + id +
-                ", videoId=" + videoId +
-                ", title='" + title + '\'' +
-                ", ordered=" + ordered +
-                ", createTime=" + createTime +
-                '}';
+    private List<Episode> episodeList;
+
+    public List<Episode> getEpisodeList() {
+        return episodeList;
+    }
+
+    public void setEpisodeList(List<Episode> episodeList) {
+        this.episodeList = episodeList;
     }
 
     public Integer getId() {
@@ -73,5 +73,17 @@ public class Chapter {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Chapter{" +
+                "id=" + id +
+                ", videoId=" + videoId +
+                ", title='" + title + '\'' +
+                ", ordered=" + ordered +
+                ", createTime=" + createTime +
+                ", episodeList=" + episodeList +
+                '}';
     }
 }

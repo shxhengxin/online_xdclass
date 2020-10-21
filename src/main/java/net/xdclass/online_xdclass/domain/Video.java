@@ -1,6 +1,7 @@
 package net.xdclass.online_xdclass.domain;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *  小滴课堂 视频对象
@@ -34,6 +35,15 @@ public class Video {
 
     private Double point;
 
+    private List<Chapter> chapterList;
+
+    public List<Chapter> getChapterList() {
+        return chapterList;
+    }
+
+    public void setChapterList(List<Chapter> chapterList) {
+        this.chapterList = chapterList;
+    }
 
     public Integer getId() {
         return id;
@@ -101,6 +111,7 @@ public class Video {
                 ", price=" + price +
                 ", createTime=" + createTime +
                 ", point=" + point +
+                ", chapterList=" + chapterList +
                 '}';
     }
 }
