@@ -1,10 +1,11 @@
 package net.xdclass.online_xdclass.service.impl;
 
-import net.xdclass.online_xdclass.domain.User;
+import net.xdclass.online_xdclass.model.entity.User;
 import net.xdclass.online_xdclass.exception.XDException;
 import net.xdclass.online_xdclass.mapper.UserMapper;
 import net.xdclass.online_xdclass.service.UserService;
 import net.xdclass.online_xdclass.utils.CommonUtils;
+import net.xdclass.online_xdclass.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +26,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public int save(Map<String, String> userInfo) {
         User user = parseToUser(userInfo);
-        if(user != null) {
-            return  userMapper.save(user);
+
+        if(user == null) {
+            throw new XDException(-1,"参数缺失");
         }
-        return -1;
+        User userMapperByPhone = findByPhone(userInfo.get("phone"));
+        if (userMapperByPhone != null) {
+            throw new XDException(-1,"手机号已存在");
+        }
+        return  userMapper.save(user);
+
     }
 
     private User parseToUser(Map<String, String> userInfo) {
@@ -47,9 +54,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByPhone(String phone) {
-        //User user = userMapper.findByPhone(phone);
-        //return user != null?null:user;
-        return  null;
+        User user = userMapper.findByPhone(phone);
+        return user;
+
+    }
+
+    @Override
+    public String findByPhoneAndPwd(String phone, String pwd) {
+        User user = userMapper.findByPhoneAndPwd(phone,CommonUtils.MD5(pwd));
+        if(user == null) return null;
+        String token = JWTUtils.geneJsonWebToken(user);
+        return token;
     }
 
     private static final String [] headImg = {

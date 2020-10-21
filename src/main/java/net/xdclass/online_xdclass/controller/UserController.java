@@ -1,5 +1,6 @@
 package net.xdclass.online_xdclass.controller;
 
+import net.xdclass.online_xdclass.model.request.LoginRequest;
 import net.xdclass.online_xdclass.service.UserService;
 import net.xdclass.online_xdclass.utils.JsonData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,29 @@ public class UserController {
    @Autowired
     private UserService userService;
 
+   /***
+    * @author shenhengxin
+    * @description 注册接口
+    * @Date 21:25 2020/10/21
+    * @Param [userInfo]
+    * @return net.xdclass.online_xdclass.utils.JsonData
+    */
     @PostMapping("register")
     public JsonData register(@RequestBody Map<String,String> userInfo) {
         int rows = userService.save(userInfo);
         return  rows == 1?JsonData.buildSuccess():JsonData.buildError("注册失败");
+    }
+
+    /***
+     * @author shenhengxin
+     * @description 登录接口
+     * @Date 21:25 2020/10/21
+     * @Param [loginRequest]
+     * @return net.xdclass.online_xdclass.utils.JsonData
+     */
+    @PostMapping("login")
+    public JsonData login(@RequestBody LoginRequest loginRequest) {
+        String token = userService.findByPhoneAndPwd(loginRequest.getPhone(),loginRequest.getPwd());
+        return token == null? JsonData.buildError("登录失败，帐号密码错误"): JsonData.buildSuccess(token);
     }
 }

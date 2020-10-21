@@ -18,6 +18,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CustomExceptionHandler {
     private final static Logger logger = LoggerFactory.getLogger(CustomExceptionHandler.class);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public JsonData handle(Exception e) {

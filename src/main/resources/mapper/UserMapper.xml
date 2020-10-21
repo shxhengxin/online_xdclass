@@ -11,4 +11,8 @@
         #{phone,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
         )
     </insert>
+
+    <select id="findByPhoneAndPwd" resultType="User">
+        select * from user where phone = #{phone} AND pwd = #{pwd}
+    </select>
 </mapper>

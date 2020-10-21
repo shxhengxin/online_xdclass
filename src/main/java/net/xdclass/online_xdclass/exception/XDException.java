@@ -15,9 +15,6 @@ public class XDException extends RuntimeException{
         this.code = code;
         this.msg = msg;
     }
-    public XDException() {
-    }
-
 
     public Integer getCode() {
         return code;
