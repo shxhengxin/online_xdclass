@@ -1,5 +1,7 @@
 package net.xdclass.online_xdclass.exception;
 
+import net.xdclass.online_xdclass.utils.JsonData;
+
 /**
  * @ClassName : XDException  //类名
  * @Description : 自定义异常类  //描述
@@ -13,6 +15,9 @@ public class XDException extends RuntimeException{
         this.code = code;
         this.msg = msg;
     }
+    public XDException() {
+    }
+
 
     public Integer getCode() {
         return code;
