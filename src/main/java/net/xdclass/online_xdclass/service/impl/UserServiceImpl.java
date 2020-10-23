@@ -67,6 +67,12 @@ public class UserServiceImpl implements UserService {
         return token;
     }
 
+    @Override
+    public User findByUserId(Integer userId) {
+        User user = userMapper.findByUserId(userId);
+        return user;
+    }
+
     private static final String [] headImg = {
             "https://xd-video-pc-img.oss-cn-beijing.aliyuncs.com/xdclass_pro/default/head_img/12.jpeg",
             "https://xd-video-pc-img.oss-cn-beijing.aliyuncs.com/xdclass_pro/default/head_img/11.jpeg",

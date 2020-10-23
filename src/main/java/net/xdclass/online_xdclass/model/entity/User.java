@@ -1,5 +1,9 @@
 package net.xdclass.online_xdclass.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -15,13 +19,13 @@ public class User {
     private Integer id;
 
     private String name;
-
+    @JsonIgnore
     private String pwd;
 
     private String headImg;
 
     private String phone;
-
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @Override

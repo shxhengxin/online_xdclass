@@ -1,5 +1,7 @@
 package net.xdclass.online_xdclass.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 
@@ -17,7 +19,7 @@ public class VideoOrder {
     private String outTradeNo;
 
     private Integer state;
-
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private  Integer totalFee;
