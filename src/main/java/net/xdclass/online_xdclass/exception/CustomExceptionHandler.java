@@ -13,25 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Author : shenhengxin  //作者
  * @Date: 2020-10-21 15:24  //时间
  */
-
 @ControllerAdvice
 public class CustomExceptionHandler {
     private final static Logger logger = LoggerFactory.getLogger(CustomExceptionHandler.class);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public JsonData handle(Exception e) {
