@@ -1,15 +1,17 @@
 package net.xdclass.online_xdclass.service.impl;
 
 import net.xdclass.online_xdclass.exception.XDException;
-import net.xdclass.online_xdclass.mapper.UserMapper;
+import net.xdclass.online_xdclass.mapper.EpisodeMapper;
+import net.xdclass.online_xdclass.mapper.PlayRecordMapper;
 import net.xdclass.online_xdclass.mapper.VideoMapper;
 import net.xdclass.online_xdclass.mapper.VideoOrderMapper;
+import net.xdclass.online_xdclass.model.entity.Episode;
+import net.xdclass.online_xdclass.model.entity.PlayRecord;
 import net.xdclass.online_xdclass.model.entity.Video;
 import net.xdclass.online_xdclass.model.entity.VideoOrder;
 import net.xdclass.online_xdclass.service.VideoOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.UUID;
 
@@ -26,6 +28,12 @@ public class VideoOrderServiceImpl implements VideoOrderService {
 
     @Autowired
     private VideoMapper videoMapper;
+
+    @Autowired
+    private EpisodeMapper episodeMapper;
+
+    @Autowired
+    private PlayRecordMapper playRecordMapper;
 
     /***
      * @author shenhengxin
@@ -51,7 +59,20 @@ public class VideoOrderServiceImpl implements VideoOrderService {
         newVideoOrder.setVideoId(videoId);
         newVideoOrder.setVideoImg(video.getCoverImg());
         newVideoOrder.setVideoTitle(video.getTitle());
-        videoOrderMapper.saveOrder(newVideoOrder);
+        int rows = videoOrderMapper.saveOrder(newVideoOrder);
+        if(rows == 1) {//生成播放记录
+            Episode episode = episodeMapper.findFirstEpisodeByVideoId(videoId);
+            if(episode == null) {
+                throw new XDException(-1,"视频没有集信息,请运营人员检查");
+            }
+            PlayRecord playRecord = new PlayRecord();
+            playRecord.setCreateTime(new Date());
+            playRecord.setCurrentNum(episode.getNum());
+            playRecord.setEpisodeId(episode.getId());
+            playRecord.setUserId(userId);
+            playRecord.setVideoId(videoId);
+            playRecordMapper.saveRecord(playRecord);
+        }
         return newVideoOrder.getId();
     }
 }
