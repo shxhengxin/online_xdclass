@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -77,5 +78,11 @@ public class VideoOrderServiceImpl implements VideoOrderService {
             playRecordMapper.saveRecord(playRecord);
         }
         return newVideoOrder.getId();
+    }
+
+    @Override
+    public List<VideoOrder> listOrderByUserId(int userId) {
+        List<VideoOrder> videoOrderList = videoOrderMapper.listOrderByUserId(userId);
+        return videoOrderList;
     }
 }

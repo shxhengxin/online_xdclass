@@ -5,12 +5,10 @@ import net.xdclass.online_xdclass.model.request.VideoOrderRequest;
 import net.xdclass.online_xdclass.service.VideoOrderService;
 import net.xdclass.online_xdclass.utils.JsonData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @ClassName : VideoOrderController  //类名
@@ -36,5 +34,18 @@ public class VideoOrderController {
         Integer userId = (Integer) request.getAttribute("user_id");
         int videoOrderId = videoOrderService.save(userId, videoOrderRequest.getVideoId());
         return videoOrderId == 0 ?JsonData.buildError("下单失败"):JsonData.buildSuccess(videoOrderId);
+    }
+    /***
+     * @author shenhengxin
+     * @description 订单列表
+     * @Date 20:21 2020/10/24
+     * @Param [request]
+     * @return net.xdclass.online_xdclass.utils.JsonData
+     */
+    @GetMapping("list")
+    public JsonData listOrder(HttpServletRequest request) {
+        Integer userId = (Integer) request.getAttribute("user_id");
+        List<VideoOrder> videoOrderList = videoOrderService.listOrderByUserId(userId);
+        return JsonData.buildSuccess(videoOrderList);
     }
 }

@@ -5,6 +5,9 @@
         select * from video_order where user_id = #{user_id} and video_id = #{video_id} and state = #{state}
     </select>
 
+    <select id="listOrderByUserId" resultType="VideoOrder">
+        select * from video_order where user_id = #{user_id} order by create_time desc
+    </select>
     <insert id="saveOrder" parameterType="VideoOrder" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into  video_order(out_trade_no,state,create_time,total_fee,video_id,video_title,video_img,user_id)
         values (
