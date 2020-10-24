@@ -12,4 +12,6 @@ public interface VideoMapper {
     List<VideoBanner> listVideoBanner();
 
     Video findDetailById(@Param("video_id") int videoId);
+
+    Video findById(@Param("video_id") int videoId);
 }
