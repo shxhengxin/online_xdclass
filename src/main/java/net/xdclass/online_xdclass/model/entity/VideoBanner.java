@@ -1,9 +1,6 @@
 package net.xdclass.online_xdclass.model.entity;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
-
 /**
  * 小滴课堂 视频轮播图
  *

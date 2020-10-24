@@ -1,10 +1,6 @@
 package net.xdclass.online_xdclass.model.entity;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
-
-
 /**
 * @ClassName: VideoOrder
 * @Description: TODO
