@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class BaseCache {
-    private Cache<String,Override> tenMinuteCache = CacheBuilder.newBuilder()
+    private Cache<String,Object> tenMinuteCache = CacheBuilder.newBuilder()
             //设置缓存初始大小,应该合理设置,后续会扩容
             .initialCapacity(10)
             //最大值
@@ -27,11 +27,11 @@ public class BaseCache {
             .recordStats()
             .build();
 
-    public Cache<String, Override> getTenMinuteCache() {
+    public Cache<String, Object> getTenMinuteCache() {
         return tenMinuteCache;
     }
 
-    public void setTenMinuteCache(Cache<String, Override> tenMinuteCache) {
+    public void setTenMinuteCache(Cache<String, Object> tenMinuteCache) {
         this.tenMinuteCache = tenMinuteCache;
     }
 }
