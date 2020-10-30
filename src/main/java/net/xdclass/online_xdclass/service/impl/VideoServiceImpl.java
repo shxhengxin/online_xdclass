@@ -27,8 +27,22 @@ public class VideoServiceImpl implements VideoService {
     private BaseCache baseCache;
     @Override
     public List<Video> listVideo() {
-        List<Video> videoList = videoMapper.listVideo();
-        return videoList;
+        try {
+            Object cacheObj = baseCache.getTenMinuteCache().get(CacheKeyManager.INDEX_VIDEO_LIST,()->{
+                List<Video> videoList = videoMapper.listVideo();
+                System.out.println("数据库中打印数据");
+                return videoList;
+            });
+            if(cacheObj instanceof List) {
+                List<Video> videoList = (List<Video>) cacheObj;
+                return videoList;
+            }
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @Override
@@ -53,8 +67,23 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public Video findDetailById(int videoId) {
-        Video video = videoMapper.findDetailById(videoId);
-        return video;
+
+        try {
+            String videoCacheKey = String.format(CacheKeyManager.VIDEO_DETAIL,videoId);
+            Object cacheObj = baseCache.getOneHourCache().get(videoCacheKey,()->{
+                Video video = videoMapper.findDetailById(videoId);
+                System.out.println("从数据库中查询");
+                return video;
+            });
+            if (cacheObj instanceof  Video) {
+                Video video = (Video) cacheObj;
+                return  video;
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 }
